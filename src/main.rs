@@ -49,9 +49,12 @@ fn main() {
                 refresh_requests.push(request);
 
                 for req in refresh_requests {
+                    // make a check for the user id to ignore sending the same message twice to the person who sent that message
+                    // or, to begin with only send users their own messages after the server has acknowledged them
+                    // IGNORE THIS COMMENT: we also need to check for possible message send failures LOOOL IMAGINE REMOVING UNWRAPS
                     req.respond(Response::from_string(json_content.dump())).unwrap();
                 }
-
+                
                 refresh_requests = vec![];
                 
                 // we continue because this request should not be responded to yet (if this was the refresh command which is not yet oopps)
